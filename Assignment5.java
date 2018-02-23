@@ -182,6 +182,7 @@ public class Assignment5 extends Application{
         accountHolderName.setText("Account Holder Name: " + newAH.getName());
         accountHolderID.setText("Account ID: " + newAH.getID());
         statBalance.setText("Balance: " + newAccBalance);
+        bankAccount.setBalance(newAccBalance);
 
         // return to scene1
         primaryStage.setScene(scene);
