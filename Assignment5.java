@@ -20,15 +20,18 @@ import javafx.scene.text.*;
 public class Assignment5 extends Application{
   private Customer accountHolder;
   private BankAccount bankAccount = new BankAccount(accountHolder);
+  private BankAccount currentBankAccount = new BankAccount();
   private double newDeposit = 0;
   private double newWithdrawl = 0;
   private double accountBalance = bankAccount.getBalance();
+  private double amount;
   private final int hBoxWidth = 6;
   private final int vBoxWidth = 30;
   private final int groupHeight = 300;
   private final int groupWidth = 500;
   private final int textFieldWidth = 100;
   private final int mathSign = 1;
+
 
   public void userSetAccountHolder() {
     String name;
@@ -42,6 +45,17 @@ public class Assignment5 extends Application{
     id = keyID.nextInt();
 
     accountHolder = new Customer(name, id);
+    setCurrentBankAccount(bankAccount);
+  }
+
+  //set the current bank account being used by app
+  public void setCurrentBankAccount(BankAccount aBankAccount){
+    currentBankAccount = aBankAccount;
+  }
+
+  //get the current bank account being used by the app.
+  public BankAccount getCurrentBankAccount(){
+    return currentBankAccount;
   }
 
   public void start(Stage primaryStage){
@@ -49,6 +63,7 @@ public class Assignment5 extends Application{
     if (accountHolder == null) {
       userSetAccountHolder();
     }
+
 
     //Create a new group to hold the buttons and boxes. -- dont need StackPane
     Group root = new Group();
@@ -80,15 +95,32 @@ public class Assignment5 extends Application{
     entry.setPrefWidth(textFieldWidth*2.5);
     changeInMoney.getChildren().add(entry);
 
-    //Create actions for buttons
-    HandleButtonClick depositAction = new HandleButtonClick(statBalance, entry,
-                                                            bankAccount, mathSign);
-    deposit.setOnAction(depositAction);
+    /*Create actions for buttons
+    Deposit entry into current bank account's balance
+    Source of technique was Chapter 8, Walter Savitch Java: An Introduction to Problem Solving and Programming (8th Edition)
+    */
+    deposit.setOnAction(new EventHandler<ActionEvent>(){
+      @Override
+      public void handle(ActionEvent event){
+        //get value of deposit
+        amount = (Double.parseDouble(entry.getText()));
+        currentBankAccount.deposit(amount);
+        accountBalance = currentBankAccount.getBalance();
+        statBalance.setText("Balance: " + Double.toString(accountBalance));
+      }
+    });
 
-
-    HandleButtonClick withdrawalAction = new HandleButtonClick(statBalance, entry,
-                                                              bankAccount, -mathSign);
-    withdrawal.setOnAction(withdrawalAction);
+    //withdraw entry from current bank account's balance
+    withdrawal.setOnAction(new EventHandler<ActionEvent>(){
+      @Override
+      public void handle(ActionEvent event){
+        //get value of deposit
+        amount = (Double.parseDouble(entry.getText()));
+        currentBankAccount.withdraw(amount);
+        accountBalance = currentBankAccount.getBalance();
+        statBalance.setText("Balance: " + Double.toString(accountBalance));
+      }
+    });
 
     //combine all boxes into scene
     buttons.getChildren().addAll(withdrawal, deposit);
@@ -172,8 +204,11 @@ public class Assignment5 extends Application{
       public void handle(ActionEvent event){
         Double newAccBalance = Double.parseDouble(startBalanceField.getText());
 
-        // create a new bank account
+        // create a new bank account and set its balance
         BankAccount newBankAccount = new BankAccount();
+        newBankAccount.setBalance(newAccBalance);
+
+
 
         // create a corresponding customer
         Customer newAH =
@@ -182,7 +217,9 @@ public class Assignment5 extends Application{
         accountHolderName.setText("Account Holder Name: " + newAH.getName());
         accountHolderID.setText("Account ID: " + newAH.getID());
         statBalance.setText("Balance: " + newAccBalance);
-        bankAccount.setBalance(newAccBalance);
+
+        //set the newly created bank account as the current bank account
+        setCurrentBankAccount(newBankAccount);
 
         // return to scene1
         primaryStage.setScene(scene);
