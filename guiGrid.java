@@ -30,6 +30,8 @@ public class guiGrid extends Application {
 
 
   public void makeGUI(int[][] aGrid, GridPane aGridPane){
+    // clear the gridPane
+    aGridPane.getChildren().clear();
     // set up the map grid
     for (int row = 0; row < rowNum; row++){
       for(int col = 0; col < colNum; col++){
@@ -55,7 +57,7 @@ public class guiGrid extends Application {
 
         //conditional to add room numbers to the grid map.
         if (roomNumbers != 0 && roomNumbers != 1 && roomNumbers != 9 &&
-        roomNumbers !=8 && roomNumbers !=5){
+        roomNumbers !=8 && roomNumbers !=5 && roomNumbers !=7){
           rooms.setFont(Font.font("Times New Roman", FontWeight.BOLD, 10));
           rooms.setText("" + roomNumbers);
         } else if (roomNumbers == 8){
@@ -122,7 +124,10 @@ public class guiGrid extends Application {
     HBox topRow = new HBox();
     topRow.setAlignment(Pos.CENTER);
     Label appName = new Label ("Taylor Family Digital Library Pathfinder");
-
+    appName.setFont(Font.font("Verdana", FontWeight.BOLD,15));
+    HBox topRow2 = new HBox();
+    topRow2.setAlignment(Pos.CENTER);
+    topRow2.getChildren().add(appName);
     //https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
     ComboBox<String> buildingDropDown = new ComboBox<String>();
     buildingDropDown.getItems().addAll("Taylor Family Digital Library");
@@ -130,15 +135,44 @@ public class guiGrid extends Application {
     TextField enterStartRoom = new TextField("Enter the start room");
     TextField enterDestRoom= new TextField("Enter destination room");
 
-    topRow.getChildren().addAll(appName, buildingDropDown, enterStartRoom, enterDestRoom);
+    // new submit button for scene 2
+    Button submitB = new Button("Submit");
+    //handle when submit button (in scene 2) is clicked
+    submitB.setOnAction(new EventHandler<ActionEvent>(){
+      public void handle(ActionEvent event){
+        String buildingSubmit = "Taylor Family Digital Library";
+        int roomNumberSub1 = Integer.parseInt(enterStartRoom.getText());
+        int roomNumberSub2 = Integer.parseInt(enterDestRoom.getText());
+        FloorPlans updatedPlan2 = new FloorPlans();
+        updatedPlan2.setGrid("Taylor Family Digital Library",
+        roomNumberSub2);
+        map1.setCurrentFloorPlan(updatedPlan2);
 
+        // add markers for the destination (yellow)
+        Path testPathSub = new Path(updatedPlan2);
+        testPathSub.setDestLoc(roomNumberSub2);
+        map1.placeDest(testPathSub.getEndRow(),testPathSub.getEndCol());
+        testPathSub.setStartLoc(roomNumberSub1);
+        map1.placeStart(testPathSub.getStartRow(),testPathSub.getStartCol());
+
+        testPathSub.createPath();
+        // Create the updated GUI for the map
+        makeGUI(updatedPlan2.getGrid(),gridPane);
+
+      }
+    });
+
+    VBox topVBox = new VBox(15);
+    topRow.getChildren().addAll(buildingDropDown, enterStartRoom,
+    enterDestRoom, submitB);
+    topVBox.getChildren().addAll(topRow2,topRow);
     // set the alignment of the grid pane
     gridPane.setAlignment(Pos.CENTER);
 
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/BorderPane.html
     BorderPane borderPanes2 = new BorderPane();
     borderPanes2.setCenter(gridPane);
-    borderPanes2.setTop(topRow);
+    borderPanes2.setTop(topVBox);
 
     Scene scene2 = new Scene(borderPanes2,700,700);
 
