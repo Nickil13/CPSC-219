@@ -1,7 +1,6 @@
-/** Last Edited by Riley S
-*26 Feb 2018 20:50-*
-*Nicki Feb 28
+/** Last Edited by Nicki Feb 29
 */
+import java.util.ArrayList;
 
 public class FloorPlans {
   private int[][] tfdlOne =
@@ -28,7 +27,7 @@ public class FloorPlans {
   {0,0,1,1,9,9,9,9,0,0,0,0,1,1,0,0,0,0},
   {0,0,1,1,9,9,9,9,9,9,1,1,1,1,0,0,0,0},
   {0,0,1,1,9,262,9,263,9,264,1,1,1,1,0,0,0,0},
-  {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,251,9,9,0},
+  {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1251,251,251,0},
   {0,0,1,1,1,1,1,1,1,1,1,1,1,1,9,9,9,0},
   {0,0,1,1,9,259,9,9,9,9,1,1,1,1,250,9,9,0},
   {0,0,1,1,9,9,9,9,9,9,1,1,1,1,9,9,9,0},
@@ -55,6 +54,7 @@ public class FloorPlans {
   //private int column;
   private int destNum;
   private String building;
+  private ArrayList<Room> roomList = new ArrayList<Room>();
 
 
   // default constructor
@@ -71,12 +71,22 @@ public class FloorPlans {
     }
   }
 
-  // constructor with a building and room number
+  // constructor with rooms & doors
+  public FloorPlans(String theBuilding, int theDestNum){
+    building = theBuilding;
+    destNum = theDestNum;
+    setGrid(theBuilding,theDestNum);
+    makeRooms();
+    populateRooms();
+  }
+
+  /*// constructor with a building and room number
   public FloorPlans(String aBuilding, int theDestNum){
     building = aBuilding;
     destNum = theDestNum;
     setGrid(aBuilding,theDestNum);
-  }
+  }*/
+
   // getter for destinaton number
   public int getDestNumber(){
     return destNum;
@@ -129,6 +139,57 @@ public class FloorPlans {
       }
     }
   }
-
-
+  // get room method
+  public Room getRoom(int gridNum){
+    Room room = null;
+    for(int i = 0; i <roomList.size();i++){
+      if (roomList.get(i).getRoomsNumber() == gridNum){
+        room = roomList.get(i);
+      }
+    }
+    return room;
   }
+
+  // add a room to the roomlist in the floorplan
+  public void addRoom(int gridNum){
+    // if number is not in roomlist... **
+    roomList.add(new Room(gridNum));
+  }
+  // make a room for each corresponding room on a grid
+  // meant to be used in a for-loop
+  public void makeRooms(){
+    int gridNum;
+    for (int row = 0; row<14; row++ ){
+      for(int col = 0; col<18; col++){
+        gridNum = grid[row][col];
+        if(gridNum>9 && gridNum!=25 & gridNum<1000){
+          if (getRoom(gridNum)== null){
+            addRoom(gridNum);
+          }
+        }
+      }
+    }
+  }
+
+  // populate each room within the floorplan with tiles and a door
+  // meant to be used in a for-loop
+  public void populateRooms(){
+    int gridNum;
+    for (int row = 0; row<14;row++){
+      for (int col =0; col<18; col++){
+        gridNum = grid[row][col];
+        if (getRoom(gridNum) != null){
+          getRoom(gridNum).addTile(row,col);
+        }
+        if(gridNum > 1000){
+            // get the room for a door (1000+ item) and subtract 1000 to find
+            // which room it is for. Set the door as the current tile in the loop.
+            Room tempRoom = getRoom(gridNum-1000);
+            tempRoom.setDoor(row,col);
+        }
+
+      }
+    }
+  }
+
+}
