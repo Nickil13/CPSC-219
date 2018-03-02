@@ -10,7 +10,7 @@ import javafx.geometry.Pos;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.*;
-
+import java.util.ArrayList;
 
 
 public class guiGrid extends Application {
@@ -19,19 +19,22 @@ public class guiGrid extends Application {
   * There needs to be an argument for the new map creation to work with the
   * changes I made, ideally this would come from a button click that would
   * take in a room number - Dayan 22 Feb 2018
-  * Last updated Feb 28 by Nicki.
+  * Last updated Feb 29 by Nicki.
   */
 
-  private int rowNum = 14;
-  private int colNum = 18;
+  private final int rowNum = 14;
+  private final int colNum = 18;
   private Map map1 = new Map();
   private GridPane gridPane = new GridPane();
   private int roomNumbers = 0;
 
 
-  public void makeGUI(int[][] aGrid, GridPane aGridPane){
+  public void makeGUI(FloorPlans aFloorPlan, GridPane aGridPane){
+    int[][] aGrid = aFloorPlan.getGrid();
     // clear the gridPane
     aGridPane.getChildren().clear();
+    //https://stackoverflow.com/questions/27066484/remove-all-children
+    //-from-a-group-without-knowing-the-containing-nodes
     // set up the map grid
     for (int row = 0; row < rowNum; row++){
       for(int col = 0; col < colNum; col++){
@@ -48,6 +51,9 @@ public class guiGrid extends Application {
           rect.setFill(Color.RED);
         } else if (aGrid[row][col] == 7){
           rect.setFill(Color.GREEN);
+          // testing changing the color of one particular room (for highlighting)
+        } else if (aGrid[row][col] == aFloorPlan.getRoom(251).getRoomsNumber()){
+          rect.setFill(Color.BLUE);
         }else{
           rect.setFill(Color.LIGHTBLUE);
         }
@@ -66,10 +72,16 @@ public class guiGrid extends Application {
         } else if (roomNumbers == 5){
           rooms.setFont(Font.font("Times New Roman", FontWeight.BOLD, 10));
           rooms.setText("" + "D");
+        } else if (roomNumbers > 1000){
+          // can't get this to output the right number! Still does 1251.
+          int roomNumbers2 = roomNumbers - 1000;
+          rooms.setFont(Font.font("Times New Roman", FontWeight.BOLD, 10));
+          rooms.setText("" + Integer.toString(roomNumbers2));
         }
         rect.setStroke(Color.BLACK);
         rect.setWidth(30);
         rect.setHeight(30);
+
         StackPane stack = new StackPane();
         stack.getChildren().addAll(rect, rooms);
         GridPane.setRowIndex(stack, row);
@@ -143,12 +155,12 @@ public class guiGrid extends Application {
         String buildingSubmit = "Taylor Family Digital Library";
         int roomNumberSub1 = Integer.parseInt(enterStartRoom.getText());
         int roomNumberSub2 = Integer.parseInt(enterDestRoom.getText());
-        FloorPlans updatedPlan2 = new FloorPlans();
-        updatedPlan2.setGrid("Taylor Family Digital Library",
+        FloorPlans updatedPlan2 = new FloorPlans("Taylor Family Digital Library",
         roomNumberSub2);
+
         map1.setCurrentFloorPlan(updatedPlan2);
 
-        // add markers for the destination (yellow)
+        // add markers for the destination (yellow). *Sub = wrt submit button
         Path testPathSub = new Path(updatedPlan2);
         testPathSub.setDestLoc(roomNumberSub2);
         map1.placeDest(testPathSub.getEndRow(),testPathSub.getEndCol());
@@ -157,7 +169,7 @@ public class guiGrid extends Application {
 
         testPathSub.createPath();
         // Create the updated GUI for the map
-        makeGUI(updatedPlan2.getGrid(),gridPane);
+        makeGUI(updatedPlan2,gridPane);
 
       }
     });
@@ -182,8 +194,9 @@ public class guiGrid extends Application {
         String building2 = buildingText.getText();
         int roomNumber1 = Integer.parseInt(startText.getText());
         int roomNumber2 = Integer.parseInt(destText.getText());
-        FloorPlans updatedPlan = new FloorPlans();
-        updatedPlan.setGrid("Taylor Family Digital Library", roomNumber2);
+        FloorPlans updatedPlan = new FloorPlans("Taylor Family Digital Library",
+        roomNumber2);
+        //updatedPlan.setGrid();
         map1.setCurrentFloorPlan(updatedPlan);
 
         // add markers for the destination (yellow)
@@ -195,7 +208,7 @@ public class guiGrid extends Application {
 
         testPath.createPath();
         // Create the GUI for the map
-        makeGUI(updatedPlan.getGrid(),gridPane);
+        makeGUI(updatedPlan,gridPane);
         primaryStage.setScene(scene2);
       }
     });
