@@ -177,7 +177,7 @@ public class guiGrid extends Application {
     submitB.setOnAction(new EventHandler<ActionEvent>(){
       public void handle(ActionEvent event){
         invalidEntry.setText("");
-        String buildingSubmit = "Taylor Family Digital Library";
+        String buildingSubmit = buildingDropDown.getValue();
         int roomNumberSub1 = Integer.parseInt(enterStartRoom.getText());
         int roomNumberSub2 = Integer.parseInt(enterDestRoom.getText());
         FloorPlans updatedPlan2 = new FloorPlans();
