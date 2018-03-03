@@ -121,7 +121,9 @@ public class Path {
 
   public boolean isMoveValid(int row, int column){
     boolean valid;
-    valid = (grid[row][column] > 0 && grid[row][column] != 9);
+    valid = (grid[row][column] > 0 && grid[row][col] !=9);
+    //Something I tried: valid = (grid[row][column]== 1 || grid[row][column] == 7 ||
+    //grid[row][column] == grid[endRow][endCol]);
     //&& grid[row][column] != 7);// && floorGrid[row][column]==9);// || //destination
             //floorGrid[row][column] == 8 ||  //start
             //floorGrid[row][column] == 7); //pathalreadytaken
@@ -267,9 +269,10 @@ public class Path {
     int temporaryCol2 = 0;
     char previousMove = ' '; //Either N (north), E (east), S (south), W (west)
     String moveDirection;
-
+    int counter = 0;
     //loops as long as the current location is not the destination room.
-    while(grid[currentRow][currentCol] != grid[endRow][endCol]){
+    while(grid[currentRow][currentCol] != grid[endRow][endCol] && counter <200){
+      counter += 1;
     //currentRow != endRow && currentCol != endCol){
       moveDirection = bestMove(currentRow, currentCol, oneMove);
       //if (grid[currentRow][currentCol] == 5) {
@@ -326,6 +329,10 @@ public class Path {
 
     }
   System.out.println("found destination");
+  grid[currentRow][currentCol] = 5;
+  if (counter >=200){
+    System.out.println("path was not found");
+  }
   }
 
 }
