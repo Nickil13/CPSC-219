@@ -221,7 +221,6 @@ public class guiGrid extends Application {
       public void handle(ActionEvent event){
         invalidEntry2.setText("");
         String building2 = buildingText.getText();
-        System.out.println(building2);
         int roomNumber1 = Integer.parseInt(startText.getText());
         int roomNumber2 = Integer.parseInt(destText.getText());
         FloorPlans updatedPlan = new FloorPlans();
