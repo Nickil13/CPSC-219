@@ -89,9 +89,8 @@ public class guiGrid extends Application {
   public boolean isValidStartRoom (int aStartRoom){
     boolean isValidStart = true;
     if(aStartRoom != 25 && aStartRoom != 150&&  aStartRoom != 151&&
-    aStartRoom != 152&&  aStartRoom != 159&& aStartRoom != 160&&
-    aStartRoom != 161&&  aStartRoom != 162&& aStartRoom != 163&&
-    aStartRoom != 164&&  aStartRoom != 250&&  aStartRoom != 251&&
+    aStartRoom != 152&&  aStartRoom != 153&& aStartRoom != 154&&
+    aStartRoom != 155&&  aStartRoom != 250&&  aStartRoom != 251&&
     aStartRoom != 252&&  aStartRoom != 259&& aStartRoom != 260&&
     aStartRoom != 261&&  aStartRoom != 262&& aStartRoom != 263&&
     aStartRoom != 264){
@@ -106,9 +105,8 @@ public class guiGrid extends Application {
   public boolean isValidDestRoom (int aStartRoom){
     boolean isValidDest = true;
     if(aStartRoom != 25 && aStartRoom != 150&&  aStartRoom != 151&&
-    aStartRoom != 152&&  aStartRoom != 159&& aStartRoom != 160&&
-    aStartRoom != 161&&  aStartRoom != 162&& aStartRoom != 163&&
-    aStartRoom != 164&&  aStartRoom != 250&&  aStartRoom != 251&&
+    aStartRoom != 152&&  aStartRoom != 153&& aStartRoom != 154&&
+    aStartRoom != 155&&  aStartRoom != 250&&  aStartRoom != 251&&
     aStartRoom != 252&&  aStartRoom != 259&& aStartRoom != 260&&
     aStartRoom != 261&&  aStartRoom != 262&& aStartRoom != 263&&
     aStartRoom != 264){
@@ -140,6 +138,7 @@ public class guiGrid extends Application {
 
 
     VBox startVBox = new VBox(10);
+
     startVBox.getChildren().addAll(appTitle, buildingText, startText,
     destText, invalidEntry2, startButton);
 
@@ -203,9 +202,12 @@ public class guiGrid extends Application {
     });
 
     VBox topVBox = new VBox(15);
+    HBox invalidHBox = new HBox(10);
+    invalidHBox.getChildren().add(invalidEntry);
     topRow.getChildren().addAll(buildingDropDown, enterStartRoom,
-    enterDestRoom, submitB, invalidEntry);
-    topVBox.getChildren().addAll(topRow2,topRow);
+    enterDestRoom, submitB);
+    topVBox.getChildren().addAll(topRow2,topRow,invalidHBox);
+    invalidHBox.setAlignment(Pos.CENTER);
     // set the alignment of the grid pane
     gridPane.setAlignment(Pos.CENTER);
 
