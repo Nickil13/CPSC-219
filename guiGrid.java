@@ -10,6 +10,9 @@ import javafx.geometry.Pos;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.*;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+
 
 
 
@@ -34,6 +37,9 @@ public class guiGrid extends Application {
   public void makeGUI(int[][] aGrid, GridPane aGridPane){
     // clear the gridPane
     aGridPane.getChildren().clear();
+    Image imgRestroom = new Image("RestroomImage.png", 30, 30, true, false); //Image source: http://maxpixel.freegreatpicture.com/Rest-Room-Restroom-Ladies-Restroom-Public-Restroom-99226
+    Image imgStairs = new Image("Stairs.png", 30, 30, true, false); //Image source:https://pixabay.com/en/stairs-climb-levels-descend-44071/
+    Image imgElevator = new Image("Elevator.png", 30, 30, true, false); //Image source: https://pixabay.com/en/elevator-people-silhouette-down-44013//
     // set up the map grid
     for (int row = 0; row < rowNum; row++){
       for(int col = 0; col < colNum; col++){
@@ -50,6 +56,12 @@ public class guiGrid extends Application {
           rect.setFill(Color.RED);
         } else if (aGrid[row][col] == 7){
           rect.setFill(Color.GREEN);
+        } else if(aGrid[row][col] == 888){
+          rect.setFill(new ImagePattern(imgRestroom)); //https://stackoverflow.com/questions/22848829/how-do-i-add-an-image-inside-a-rectangle-or-a-circle-in-javafx
+        } else if(aGrid[row][col] == 777){
+          rect.setFill(new ImagePattern(imgStairs));
+        } else if(aGrid[row][col] == 555){
+          rect.setFill(new ImagePattern(imgElevator));
         }else{
           rect.setFill(Color.LIGHTBLUE);
         }
@@ -59,7 +71,8 @@ public class guiGrid extends Application {
 
         //conditional to add room numbers to the grid map.
         if (roomNumbers != 0 && roomNumbers != 1 && roomNumbers != 9 &&
-        roomNumbers !=8 && roomNumbers !=5 && roomNumbers !=7){
+        roomNumbers !=8 && roomNumbers !=5 && roomNumbers !=7 && roomNumbers != 888 
+         && roomNumbers != 555 && roomNumbers != 777){
           rooms.setFont(Font.font("Times New Roman", FontWeight.BOLD, 10));
           rooms.setText("" + roomNumbers);
         } else if (roomNumbers == 8){
