@@ -1,6 +1,5 @@
 /** Last Edited by Riley S
-*26 Feb 2018 20:50-*
-*Nicki Feb 28
+*2 March 2018 20:30
 */
 
 public class FloorPlans {
@@ -121,7 +120,7 @@ public class FloorPlans {
 
   public void setGrid(String building, int roomNum) {
     int floor = getFloorNum(roomNum);
-    if (building == "Taylor Family Digital Library") {
+    if (building.equals("Taylor Family Digital Library")) {
       if (floor == 1) {
         grid = tfdlOne;
       } else if (floor == 2) {
