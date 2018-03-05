@@ -16,13 +16,14 @@ import javafx.scene.paint.ImagePattern;
 
 
 
+
 public class guiGrid extends Application {
 
   /*
   * There needs to be an argument for the new map creation to work with the
   * changes I made, ideally this would come from a button click that would
   * take in a room number - Dayan 22 Feb 2018
-  * Last updated March 2 20:30 by Riley.
+  * Last updated March 3 by Nicki.
   */
 
   private int rowNum = 14;
@@ -33,35 +34,65 @@ public class guiGrid extends Application {
   private Label invalidEntry = new Label ("");
   private Label invalidEntry2 = new Label("");
 
+  private final int RECTD =30;
+  private final int HALL = 1;
+  private final int WALL = 0;
+  private final int ROOM = 9;
+  private final int START = 8;
+  private final int DEST = 5;
+  private final int PATH = 7;
+  private final int REST = 888;
+  private final int EL = 555;
+  private final int STAIR = 777;
+  private final int COFF = 999;
+  private int[] notMap = {WALL,HALL,ROOM,START,DEST,PATH,REST,EL,STAIR,COFF};
+
+
+  // For confirming whether an array contains a value.
+  public boolean contains(int[] anArray, int aValue){
+    boolean result = false;
+    for(int i : anArray){
+      if(i == aValue){
+        result = true;
+      }
+    }
+    return result;
+  }
 
   public void makeGUI(int[][] aGrid, GridPane aGridPane){
     // clear the gridPane
     aGridPane.getChildren().clear();
-    Image imgRestroom = new Image("RestroomImage.png", 30, 30, true, false); //Image source: http://maxpixel.freegreatpicture.com/Rest-Room-Restroom-Ladies-Restroom-Public-Restroom-99226
-    Image imgStairs = new Image("Stairs.png", 30, 30, true, false); //Image source:https://pixabay.com/en/stairs-climb-levels-descend-44071/
-    Image imgElevator = new Image("Elevator.png", 30, 30, true, false); //Image source: https://pixabay.com/en/elevator-people-silhouette-down-44013//
+    Image imgRestroom = new Image("RestroomImage.png",RECTD,RECTD, true, false);
+    //Image source: http://maxpixel.freegreatpicture.com/Rest-Room-Restroom-Ladies-Restroom-Public-Restroom-99226
+    Image imgCoffee = new Image("Coffee.png",RECTD,RECTD,true,false);
+    //Image source: https://www.freepik.com/free-icon/hot-coffee-rounded-cup-on-a-plate-from-side-view_732944.htm
+    Image imgStairs = new Image("Stairs.png", RECTD, RECTD, true, false); //Image source:https://pixabay.com/en/stairs-climb-levels-descend-44071/
+    Image imgElevator = new Image("Elevator.png", RECTD, RECTD, true, false); //Image source: https://pixabay.com/en/elevator-people-silhouette-down-44013//
     // set up the map grid
     for (int row = 0; row < rowNum; row++){
       for(int col = 0; col < colNum; col++){
         Rectangle rect = new Rectangle();
         if (aGrid[row][col] == 0){
           rect.setFill(Color.BLACK);
-        } else if (aGrid[row][col] == 1){
+        } else if (aGrid[row][col] == HALL){
           rect.setFill(Color.TRANSPARENT);
-        } else if (aGrid[row][col] == 9){
+        } else if (aGrid[row][col] == ROOM){
           rect.setFill(Color.GREY);
-        } else if (aGrid[row][col] == 5){
+        } else if (aGrid[row][col] == DEST){
           rect.setFill(Color.YELLOW);
-        } else if (aGrid[row][col] == 8){
+        } else if (aGrid[row][col] == START){
           rect.setFill(Color.RED);
-        } else if (aGrid[row][col] == 7){
+        } else if (aGrid[row][col] == PATH){
           rect.setFill(Color.GREEN);
-        } else if(aGrid[row][col] == 888){
-          rect.setFill(new ImagePattern(imgRestroom)); //https://stackoverflow.com/questions/22848829/how-do-i-add-an-image-inside-a-rectangle-or-a-circle-in-javafx
-        } else if(aGrid[row][col] == 777){
+        } else if(aGrid[row][col] == REST){
+          rect.setFill(new ImagePattern(imgRestroom));
+          //https://stackoverflow.com/questions/22848829/how-do-i-add-an-image-inside-a-rectangle-or-a-circle-in-javafx
+        } else if(aGrid[row][col] == STAIR){
           rect.setFill(new ImagePattern(imgStairs));
-        } else if(aGrid[row][col] == 555){
+        } else if(aGrid[row][col] == EL){
           rect.setFill(new ImagePattern(imgElevator));
+        } else if(aGrid[row][col] == COFF){
+          rect.setFill(new ImagePattern(imgCoffee));
         }else{
           rect.setFill(Color.LIGHTBLUE);
         }
@@ -69,33 +100,32 @@ public class guiGrid extends Application {
         roomNumbers = aGrid[row][col];
         Label rooms = new Label("");
 
-        //conditional to add room numbers to the grid map.
-        if (roomNumbers != 0 && roomNumbers != 1 && roomNumbers != 9 &&
-        roomNumbers !=8 && roomNumbers !=5 && roomNumbers !=7 && roomNumbers != 888 
-         && roomNumbers != 555 && roomNumbers != 777){
-          rooms.setFont(Font.font("Times New Roman", FontWeight.BOLD, 10));
-          rooms.setText("" + roomNumbers);
-        } else if (roomNumbers == 8){
-          rooms.setFont(Font.font("Times New Roman", FontWeight.BOLD, 10));
-          rooms.setText("" + "S");
-        } else if (roomNumbers == 5){
-          rooms.setFont(Font.font("Times New Roman", FontWeight.BOLD, 10));
-          rooms.setText("" + "D");
-        }
+
+        //Conditional to add room numbers to the grid map.
+          if (contains(notMap,roomNumbers) == false){
+            rooms.setFont(Font.font("Times New Roman", FontWeight.BOLD, 10));
+            rooms.setText("" + roomNumbers);
+          } else if (roomNumbers == START){
+            rooms.setFont(Font.font("Times New Roman", FontWeight.BOLD, 10));
+            rooms.setText("" + "S");
+          } else if (roomNumbers == DEST){
+            rooms.setFont(Font.font("Times New Roman", FontWeight.BOLD, 10));
+            rooms.setText("" + "D");
+          }
         rect.setStroke(Color.BLACK);
-        rect.setWidth(30);
-        rect.setHeight(30);
+        rect.setWidth(RECTD);
+        rect.setHeight(RECTD);
+
         StackPane stack = new StackPane();
-        stack.getChildren().addAll(rect, rooms);
+
+        stack.getChildren().addAll(rect,rooms);
         GridPane.setRowIndex(stack, row);
         GridPane.setColumnIndex(stack, col);
-        aGridPane.getChildren().addAll(stack);
+        aGridPane.getChildren().add(stack);
+        //aGridPane.getChildren().add(stack);
         //https://stackoverflow.com/questions/35367060/gridpane-of-squares-in-javafx
       }
     }
-    // place start and destination markers
-
-
   }
 
   //check if entered valid start
@@ -115,14 +145,14 @@ public class guiGrid extends Application {
   }
 
   //check if entered valid destination
-  public boolean isValidDestRoom (int aStartRoom){
+  public boolean isValidDestRoom (int aDestRoom){
     boolean isValidDest = true;
-    if(aStartRoom != 25 && aStartRoom != 150&&  aStartRoom != 151&&
-    aStartRoom != 152&&  aStartRoom != 153&& aStartRoom != 154&&
-    aStartRoom != 155&&  aStartRoom != 250&&  aStartRoom != 251&&
-    aStartRoom != 252&&  aStartRoom != 259&& aStartRoom != 260&&
-    aStartRoom != 261&&  aStartRoom != 262&& aStartRoom != 263&&
-    aStartRoom != 264){
+    if(aDestRoom != 25 && aDestRoom != 150&&  aDestRoom != 151&&
+    aDestRoom != 152&&  aDestRoom != 153&& aDestRoom != 154&&
+    aDestRoom != 155&&  aDestRoom != 250&&  aDestRoom != 251&&
+    aDestRoom != 252&&  aDestRoom != 259&& aDestRoom != 260&&
+    aDestRoom != 261&&  aDestRoom != 262&& aDestRoom != 263&&
+    aDestRoom != 264){
       System.out.println("Please enter a valid end room. Example: 151 or 161");
       invalidEntry.setText("Please enter a valid end room. Example: 151 or 161");
       invalidEntry2.setText("Please enter a valid end room. Example: 151 or 161");
@@ -171,11 +201,14 @@ public class guiGrid extends Application {
 
     HBox topRow = new HBox();
     topRow.setAlignment(Pos.CENTER);
+
     Label appName = new Label ("Taylor Family Digital Library Pathfinder");
     appName.setFont(Font.font("Verdana", FontWeight.BOLD,15));
+
     HBox topRow2 = new HBox();
     topRow2.setAlignment(Pos.CENTER);
     topRow2.getChildren().add(appName);
+
     //https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
     ComboBox<String> buildingDropDown = new ComboBox<String>();
     buildingDropDown.getItems().addAll("Taylor Family Digital Library");
@@ -184,9 +217,10 @@ public class guiGrid extends Application {
     TextField enterDestRoom= new TextField("Enter destination room");
 
 
-    // new submit button for scene 2
+    // New submit button for Scene 2
     Button submitB = new Button("Submit");
-    //handle when submit button (in scene 2) is clicked
+
+    // Handle when submit button (in scene 2) is clicked.
     submitB.setOnAction(new EventHandler<ActionEvent>(){
       public void handle(ActionEvent event){
         invalidEntry.setText("");
@@ -213,15 +247,19 @@ public class guiGrid extends Application {
 
       }
     });
-
+    // Create the layout boxes for Scene 2.
     VBox topVBox = new VBox(15);
+
     HBox invalidHBox = new HBox(10);
     invalidHBox.getChildren().add(invalidEntry);
+    invalidHBox.setAlignment(Pos.CENTER);
+
     topRow.getChildren().addAll(buildingDropDown, enterStartRoom,
     enterDestRoom, submitB);
+
     topVBox.getChildren().addAll(topRow2,topRow,invalidHBox);
-    invalidHBox.setAlignment(Pos.CENTER);
-    // set the alignment of the grid pane
+
+    // Set the alignment of the grid pane.
     gridPane.setAlignment(Pos.CENTER);
 
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/BorderPane.html
@@ -229,9 +267,10 @@ public class guiGrid extends Application {
     borderPanes2.setCenter(gridPane);
     borderPanes2.setTop(topVBox);
 
+    // Create Scene 2.
     Scene scene2 = new Scene(borderPanes2,700,700);
 
-    //handle when start button (in scene 1) is clicked
+    //Handle when start button (in scene 1) is clicked
     startButton.setOnAction(new EventHandler<ActionEvent>(){
       public void handle(ActionEvent event){
         invalidEntry2.setText("");
@@ -258,7 +297,6 @@ public class guiGrid extends Application {
         primaryStage.setScene(scene2);}
       }
     });
-
 
     primaryStage.setTitle("GUI");
     primaryStage.setScene(scene1);
