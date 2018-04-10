@@ -2,6 +2,7 @@
  * A class that contains the data for the points on a grid and makes them usable within arraylists for
  * various tasks
  */
+ 
 public class Node extends Tile {
   private boolean startNodeVal = false;
   private boolean endNodeVal = false;
@@ -115,7 +116,7 @@ public class Node extends Tile {
   /**
    * Setter method for the node
    *
-   * @param prevNode a node that will be set as the connected node
+   * @param: prevNode a node that will be set as the connected node
    */
   public void setConnectedNode(Node prevNode) {
     if (prevNode != null) {
@@ -128,7 +129,7 @@ public class Node extends Tile {
   /**
    * Getter method for the connected node
    *
-   * @return the connected node
+   * @return: the connected node
    */
   public Node getConnectedNode() {
     Node newConnectedNode = null;
@@ -140,5 +141,55 @@ public class Node extends Tile {
     return newConnectedNode;
   }
 
-
+  /**
+   * Checks the direction of the movement from the connected node
+   * @return: the direction as a string
+   */
+  public String getDirection() {
+    Node connectedNode = getConnectedNode();
+    String currentDirection = null;
+    double nonDiagonalMove = 1;
+    //Check if diagonal
+    if (calcDistance(connectedNode) <= nonDiagonalMove) {
+      //Check if same column
+      if (getYCoord() == connectedNode.getYCoord()) {
+        //Check row
+        if (getXCoord() < connectedNode.getXCoord()) {
+          currentDirection = "N";
+        }
+        else {
+          currentDirection = "S";
+        }
+      }
+      else {
+        if (getYCoord() < connectedNode.getYCoord()) {
+          currentDirection = "W";
+        }
+        else {
+          currentDirection = "E";
+        }
+      }
+    }
+    else {
+      if (getXCoord() < connectedNode.getXCoord()) {
+        //Check row
+        if (getYCoord() < connectedNode.getYCoord()) {
+          currentDirection = "NW";
+        }
+        else {
+          currentDirection = "NE";
+        }
+      }
+      else {
+        if (getYCoord() < connectedNode.getYCoord()) {
+          currentDirection = "SW";
+        }
+        else {
+          currentDirection = "SE";
+        }
+      }
+    }
+    return currentDirection;
+  }
 }
+
