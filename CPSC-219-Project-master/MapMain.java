@@ -41,6 +41,13 @@ public class MapMain {
     return roomDest;
   }
 
+  public String getBuilding(){
+    System.out.println("Enter the name of the building where the room you are looking for is.");
+    Scanner keyboard = new Scanner(System.in);
+    String bName = keyboard.nextLine();
+    return bName;
+  }
+
 
   public void main() {
     Map newMap = new Map();
@@ -51,11 +58,13 @@ public class MapMain {
 
     //call method to get destination room from user
     int roomDest = getDestRoom();
-
-
+    String bName = getBuilding();
+    System.out.println(bName);
+    Building currentBuilding = new Building(bName);
     // Make a new floorplan
-    FloorPlans floorPlan = new FloorPlans("Taylor Family Digital Library", roomDest);
+    FloorPlans floorPlan = currentBuilding.getFloorPlan(roomStart);
     newMap.setCurrentFloorPlan(floorPlan);
+
     // make a new path
     Path path = new Path(floorPlan.getGrid(), roomStart, roomDest);
     newMap.setStartValues(floorPlan, roomStart);
