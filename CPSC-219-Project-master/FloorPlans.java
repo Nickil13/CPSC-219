@@ -2,6 +2,7 @@
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import resources.Constants;
 
 public class FloorPlans implements Serializable {
   private int[][] grid =
