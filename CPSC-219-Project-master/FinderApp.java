@@ -344,7 +344,8 @@ public class FinderApp extends Application {
           }
           // Reset the error label.
           invalidEntry.setText("");
-
+          //Set the size of the label above the map according to map size.
+          buildingAndFloorLabel.setFont(Font.font("Verdana", (int)sizeGroup.getSelectedToggle().getUserData()/1.5));
 
           // Get input from the textfields.
           try{
