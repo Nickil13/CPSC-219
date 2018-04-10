@@ -881,7 +881,7 @@ public class FinderApp extends Application {
       if (operatingSystem.equals("Linux")){
         shortenedNameFile = shortenedNameFile.split("SavedPaths/")[1];
       // Else if the operating system is Windows it will only take the String of the file name after the last "\\" in the file path.
-      } else if(operatingSystem.equals("Windows")){
+      } else{
         shortenedNameFile = shortenedNameFile.substring(shortenedNameFile.lastIndexOf("\\") + 1);
       }
       //https://stackoverflow.com/questions/3243721/how-to-get-the-last-characters-in-a-string-in-java-regardless-of-string-size
