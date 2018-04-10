@@ -12,7 +12,14 @@ public class Constants{
   public static final int ROOM = 9;
   public static final int START = 8;
   public static final int DEST = 5;
-  public static final int PATH = 7;
+  public static final int NPATH = 70001;
+  public static final int NEPATH = 70002;
+  public static final int NWPATH = 70003;
+  public static final int SPATH = 70011;
+  public static final int SEPATH = 70012;
+  public static final int SWPATH = 70013;
+  public static final int EPATH = 70020;
+  public static final int WPATH = 70030;
   public static final int REST = 888;
   public static final int COFF = 999;
   public static final int TRANSPARENT = 998; //Transparent spots used fot allowing staggered grid rows and columns (formatting TFDLTWO)
@@ -33,6 +40,10 @@ public class Constants{
   public static final int ROOMNUMBER_FONTSIZE = 10;
   public static final int APPTITLE_FONTSIZE = 40;
   public static final int APP_LABEL_FONTSIZE = 15;
+
+  public static final int DIAGONAL_VALUE = 14;
+  public static final int OTHER_MOVE_VALUE = 10;
+}
 
   public static final int DIAGONAL_VALUE = 14;
   public static final int OTHER_MOVE_VALUE = 10;
