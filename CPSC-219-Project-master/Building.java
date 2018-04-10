@@ -35,6 +35,10 @@ public class Building implements Serializable{
       floorList.add(new FloorPlans(name,BuiltFloorPlans.TFDLSIX, 6,603,679));
       System.out.println("Floors added.");
       System.out.println("Length of plans1: " + floorList.size());
+    }else if(buildingName.equals("Bioscience")){
+      String name = "Bioscience";
+      floorList.add(new FloorPlans(name, BuiltFloorPlans.BIOSCIONE,1,180,100));
+      floorList.add(new FloorPlans(name, BuiltFloorPlans.BIOSCITWO,2,287,286));
     }
   }
   public FloorPlans getFloorPlan(int roomNumber){
@@ -68,3 +72,4 @@ public class Building implements Serializable{
 
 
 }
+
