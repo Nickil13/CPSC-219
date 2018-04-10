@@ -2,6 +2,7 @@
 * Class for the creations of the maps, sizing of the maps, and contains the path restriction for the pathfinding.
 */
 import java.io.Serializable;
+import resources.Constants;
 public class Map implements Serializable{
 
   private int roomNum;
