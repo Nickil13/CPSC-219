@@ -49,6 +49,8 @@ public class FinderApp extends Application {
     private FloorPlans currentFloorPlan;
     private VBox eleStairBox = new VBox(10);
     private VBox mapSize = new VBox();
+    private File curDir = new File((System.getProperty("user.dir"))); //The current directory. https://stackoverflow.com/questions/4871051/getting-the-current-working-directory-in-java
+    private String operatingSystem = System.getProperty("os.name"); //The opearting system of the computer running the program. https://stackoverflow.com/questions/14288185/detecting-windows-or-linux
 
     private FloorPlans updatedPlan;
 
@@ -690,7 +692,6 @@ public class FinderApp extends Application {
       try{
         outputStream =
         new ObjectOutputStream(new FileOutputStream(System.getProperty("user.dir")+"/SavedPaths/"+fileName));
-
       }catch(IOException e){
         System.out.println("Problem with output to file" + fileName);
       }
@@ -740,6 +741,36 @@ public class FinderApp extends Application {
       }
     }
 
+    /**
+    * Method to get all the saved files from a directory.
+    * @param: curDir is a directory of type File.
+    * @return: savedFiles is a list of the saved files in the parametar direcotry. Returned as a an array of type File.
+    */
+    public File[] getSavedFileList(File curDir){
+      File[] savedFiles = curDir.listFiles(); //https://stackoverflow.com/questions/15482423/how-to-list-the-files-in-current-directory
+      //Loop through the current directory to find the full name of the SavedPaths directory.
+      for (File file : savedFiles){
+        if(file.getName().endsWith("SavedPaths")){ //http://javaconceptoftheday.com/list-all-files-in-directory-in-java/
+          savedPathDir = (file);
+        }
+      }
+      return savedFiles;
+    }
+
+    /**
+    * Method to see if a file is contained in a directory.
+    * @param: curDir is a directory of type File.
+    * @param: fileName is the name of a file as a string
+    * @return:fileIsPresent is a boolean value that is true if the directory contains the file.
+
+    public boolean isFileContained (File curDir, String fileName){
+      boolean fileIsPresent = false;
+      File[] filesListed =  curDir.listFiles(); //https://stackoverflow.com/questions/15482423/how-to-list-the-files-in-current-directory
+      if(new File((System.getProperty("user.dir"))+"/"+(fileTextField.getText() + ".dat").exists())){
+        fileIsPresent = true;
+      }
+      return fileIsPresent;
+    }*/
 
   @Override
   public void start(Stage primaryStage){
@@ -747,7 +778,6 @@ public class FinderApp extends Application {
     //**
     // Welcome screen (first scene)
     //**
-
     BorderPane borderPanes1 = new BorderPane();
     borderPanes1.setStyle("-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #dc143c, #661a33)");
     //https://stackoverflow.com/questions/22007595/borderpane-with-color-gradient
@@ -853,22 +883,22 @@ public class FinderApp extends Application {
     fileTextField.setMaxWidth(100);
 
     //get a list of saved paths currently saved within the SavedPaths package.
-    File curDir = new File((System.getProperty("user.dir"))); //https://stackoverflow.com/questions/4871051/getting-the-current-working-directory-in-java
-    File[] filesList = curDir.listFiles(); //https://stackoverflow.com/questions/15482423/how-to-list-the-files-in-current-directory
-    //Loop through the current directory to find the full name of the SavedPaths directory.
-    for (File file : filesList){
-      if(file.getName().endsWith("SavedPaths")){ //http://javaconceptoftheday.com/list-all-files-in-directory-in-java/
-        savedPathDir = (file);
-      }
-    }
+    File[] filesList = getSavedFileList(curDir);
+
+
     /*Loop through the SavedPaths directory and get all files from within it.
     Abridges the name of the file directory, so it is more manageable on the screen.*/
     ArrayList<File> savedPathFiles = new ArrayList<File>();
     File[] savedPathsArray = savedPathDir.listFiles();
     for (File file : savedPathsArray){
       String shortenedNameFile = file+"";
-      //shortenedNameFile = shortenedNameFile.split("SavedPaths/")[0];
-      shortenedNameFile = shortenedNameFile.substring(shortenedNameFile.lastIndexOf("\\") + 1);
+      // If the operating system is Linux it will only take the String of the file name after "SavedPaths/" in the file path.
+      if (operatingSystem.equals("Linux")){
+        shortenedNameFile = shortenedNameFile.split("SavedPaths/")[1];
+      // Else if the operating system is Windows it will only take the String of the file name after the last "\\" in the file path.
+      } else if(operatingSystem.equals("Windows")){
+        shortenedNameFile = shortenedNameFile.substring(shortenedNameFile.lastIndexOf("\\") + 1);
+      }
       //https://stackoverflow.com/questions/3243721/how-to-get-the-last-characters-in-a-string-in-java-regardless-of-string-size
       //https://stackoverflow.com/questions/18220022/how-to-trim-a-string-after-a-specific-character-in-java
       savedPathDropDown.getItems().add(shortenedNameFile);
@@ -885,6 +915,9 @@ public class FinderApp extends Application {
           invalidEntry.setText("There is no path to save.");
         }else if(fileTextField.getText().equals("")){
           invalidEntry.setText("Enter a name for the saved path.");
+        }else if(new File(curDir + "/SavedPaths/"  + fileTextField.getText() + ".dat" ).exists()){
+          invalidEntry.setText("This file name already exists. Path saved as: "+ fileTextField.getText() + "(1).dat instead.");
+          writeToFile(fileTextField.getText() + "(1).dat");
         }else{
           writeToFile(fileTextField.getText() + ".dat");
         }
@@ -908,6 +941,9 @@ public class FinderApp extends Application {
               }
               buildingAndFloorLabel.setText(setBuildingAndFloorLabel(planRead.getFloorNum(startRead), buildingNameRead));
               invalidEntry.setText("You have loaded a path from "+ startRead+ " to " + destRead+".");
+              enterStartRoom.setText(startRead+"");
+              enterDestRoom.setText(destRead+"");
+              buildingDropDown.setValue(buildingNameRead);
               map1.setCurrentFloorPlan(planRead);
               makeGrid(planRead.getGrid(),gridPane,rectLength);
               gridVisible = true;
