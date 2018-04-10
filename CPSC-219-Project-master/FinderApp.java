@@ -582,6 +582,7 @@ public class FinderApp extends Application {
     public Rectangle setRectangles(int row, int col, int[][] aGrid, int rectLength){
 
         Rectangle rect = new Rectangle();
+        rect.setStroke(Color.BLACK);
         if (aGrid[row][col] == 0){
           rect.setFill(Color.BLACK);
         } else if (aGrid[row][col] == Constants.HALL){
@@ -629,7 +630,7 @@ public class FinderApp extends Application {
         }else{
           rect.setFill(Color.LIGHTBLUE);
         }
-        rect.setStroke(Color.BLACK);
+        
         rect.setWidth(rectLength);
         rect.setHeight(rectLength);
         rectangleGrid[row][col] = rect;
