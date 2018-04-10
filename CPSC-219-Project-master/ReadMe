@@ -47,7 +47,7 @@ Optional: To save a path on the GUI version:
 1. Create a path you wish to save for future use.
 2. Triple click in the "Save Path as:" text field.
 3. Enter a name to save the path under.
-Note: If the name is already in use, the name will have "(1)" added to the end.
+Note: If the name is already in use, the name will have a number in brackets that does not exist added to the end.
 4. The saved path will now be saved and available immediately and for future use in the "Saved Paths" drop down combo box. All saved paths are saved in the "SavedPaths" folder.
 
 To generate a path on the text-based version:
