@@ -926,6 +926,7 @@ public class FinderApp extends Application {
     }
 
     savedPathDropDown.setPromptText("Saved Paths");
+    savedPathDropDown.setMaxWidth(130);
 
     /**
     * Handles the button click of the savePath button to save the path to a file.
