@@ -937,8 +937,13 @@ public class FinderApp extends Application {
         }else if(fileTextField.getText().equals("")){
           invalidEntry.setText("Enter a name for the saved path.");
         }else if(new File(curDir + "/SavedPaths/"  + fileTextField.getText() + ".dat" ).exists()){
-          invalidEntry.setText("This file name already exists. Path saved as: "+ fileTextField.getText() + "(1).dat instead.");
-          writeToFile(fileTextField.getText() + "(1).dat");
+          int counter = 1;
+          //If file name already exists, loop adding a number in brackets to the end of the file name until it does not previously exist.
+          while(new File(curDir + "/SavedPaths/"  + fileTextField.getText() + "(" + counter + ")" + ".dat" ).exists()){
+            counter += 1;
+          }
+          invalidEntry.setText("This file name already exists. Path saved as: "+ fileTextField.getText() + "(" + counter + ")" + ".dat instead.");
+          writeToFile(fileTextField.getText() + "(" + counter + ")" + ".dat");
         }else{
           writeToFile(fileTextField.getText() + ".dat");
         }
