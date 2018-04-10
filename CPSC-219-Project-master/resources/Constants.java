@@ -44,7 +44,3 @@ public class Constants{
   public static final int DIAGONAL_VALUE = 14;
   public static final int OTHER_MOVE_VALUE = 10;
 }
-
-  public static final int DIAGONAL_VALUE = 14;
-  public static final int OTHER_MOVE_VALUE = 10;
-}
