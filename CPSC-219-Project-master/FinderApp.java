@@ -586,6 +586,7 @@ public class FinderApp extends Application {
           rect.setFill(Color.BLACK);
         } else if (aGrid[row][col] == Constants.HALL){
           rect.setFill(Color.TRANSPARENT);
+          rect.setStroke(Color.TRANSPARENT);
         } else if (aGrid[row][col] == Constants.ROOM){
           rect.setFill(Color.GREY);
         } else if (aGrid[row][col] == Constants.DEST){
@@ -593,21 +594,29 @@ public class FinderApp extends Application {
         } else if (aGrid[row][col] == Constants.START){
           rect.setFill(Color.ORANGE);
         } else if (aGrid[row][col] == Constants.NPATH){
-            rect.setFill(new ImagePattern(imgFootPrintsN));
+          rect.setFill(new ImagePattern(imgFootPrintsN));
+          rect.setStroke(Color.TRANSPARENT);
         } else if (aGrid[row][col] == Constants.NEPATH){
-            rect.setFill(new ImagePattern(imgFootPrintsNE));
+          rect.setFill(new ImagePattern(imgFootPrintsNE));
+          rect.setStroke(Color.TRANSPARENT);
         } else if (aGrid[row][col] == Constants.NWPATH){
             rect.setFill(new ImagePattern(imgFootPrintsNW));
+          rect.setStroke(Color.TRANSPARENT);
         } else if (aGrid[row][col] == Constants.SPATH){
             rect.setFill(new ImagePattern(imgFootPrintsS));
+          rect.setStroke(Color.TRANSPARENT);
         } else if (aGrid[row][col] == Constants.SWPATH){
             rect.setFill(new ImagePattern(imgFootPrintsSW));
+          rect.setStroke(Color.TRANSPARENT);
         } else if (aGrid[row][col] == Constants.SEPATH){
             rect.setFill(new ImagePattern(imgFootPrintsSE));
+          rect.setStroke(Color.TRANSPARENT);
         } else if (aGrid[row][col] == Constants.EPATH){
             rect.setFill(new ImagePattern(imgFootPrintsE));
+          rect.setStroke(Color.TRANSPARENT);
         } else if (aGrid[row][col] == Constants.WPATH){
             rect.setFill(new ImagePattern(imgFootPrintsW));
+          rect.setStroke(Color.TRANSPARENT);
         } else if(aGrid[row][col] == Constants.REST){
           rect.setFill(new ImagePattern(imgRestroom));
           //https://stackoverflow.com/questions/22848829/how-do-i-add-an-image-inside-a-rectangle-or-a-circle-in-javafx
