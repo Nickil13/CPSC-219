@@ -757,21 +757,6 @@ public class FinderApp extends Application {
       return savedFiles;
     }
 
-    /**
-    * Method to see if a file is contained in a directory.
-    * @param: curDir is a directory of type File.
-    * @param: fileName is the name of a file as a string
-    * @return:fileIsPresent is a boolean value that is true if the directory contains the file.
-
-    public boolean isFileContained (File curDir, String fileName){
-      boolean fileIsPresent = false;
-      File[] filesListed =  curDir.listFiles(); //https://stackoverflow.com/questions/15482423/how-to-list-the-files-in-current-directory
-      if(new File((System.getProperty("user.dir"))+"/"+(fileTextField.getText() + ".dat").exists())){
-        fileIsPresent = true;
-      }
-      return fileIsPresent;
-    }*/
-
   @Override
   public void start(Stage primaryStage){
 
