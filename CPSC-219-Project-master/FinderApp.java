@@ -17,6 +17,7 @@ import javafx.scene.control.ScrollPane.*;
 import java.util.ArrayList;
 import java.lang.NumberFormatException;
 import java.io.*;
+import resources.Constants;
 
 
 
@@ -66,7 +67,7 @@ public class FinderApp extends Application {
 
 
     private int[] notMap = {Constants.WALL,Constants.HALL,Constants.ROOM,Constants.START,Constants.DEST,
-      Constants.PATH,Constants.REST,1270,1170,1171,1172,1225,1125,Constants.COFF};
+      Constants.REST,1270,1170,1171,1172,1225,1125,Constants.COFF};
 
     private int whichFloor = 0;
     private FloorPlans nextFloor = new FloorPlans();
@@ -91,6 +92,22 @@ public class FinderApp extends Application {
     //Image source:https://pixabay.com/en/stairs-climb-levels-descend-44071/
     private Image imgElevator = new Image("Elevator.png", rectLength, rectLength, true, false);
     //Image source: https://pixabay.com/en/elevator-people-silhouette-down-44013//
+    private Image imgFootPrintsN = new Image("FootprintsN.png", rectLength, rectLength, true, false);
+    //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
+    private Image imgFootPrintsNE = new Image("FootprintsNE.png", rectLength, rectLength, true, false);
+    //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
+    private Image imgFootPrintsNW = new Image("FootprintsNW.png", rectLength, rectLength, true, false);
+    //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
+    private Image imgFootPrintsS = new Image("FootprintsS.png", rectLength, rectLength, true, false);
+    //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
+    private Image imgFootPrintsSE = new Image("FootprintsSE.png", rectLength, rectLength, true, false);
+    //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
+    private Image imgFootPrintsSW = new Image("FootprintsSW.png", rectLength, rectLength, true, false);
+    //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
+    private Image imgFootPrintsE = new Image("FootprintsE.png", rectLength, rectLength, true, false);
+    //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
+    private Image imgFootPrintsW = new Image("FootprintsW.png", rectLength, rectLength, true, false);
+    //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
 
     /**
     * Handle class that deals with the clicking of the elevator button.
@@ -570,8 +587,22 @@ public class FinderApp extends Application {
           rect.setFill(Color.YELLOW);
         } else if (aGrid[row][col] == Constants.START){
           rect.setFill(Color.ORANGE);
-        } else if (aGrid[row][col] == Constants.PATH){
-          rect.setFill(Color.GREEN);
+        } else if (aGrid[row][col] == Constants.NPATH){
+            rect.setFill(new ImagePattern(imgFootPrintsN));
+        } else if (aGrid[row][col] == Constants.NEPATH){
+            rect.setFill(new ImagePattern(imgFootPrintsNE));
+        } else if (aGrid[row][col] == Constants.NWPATH){
+            rect.setFill(new ImagePattern(imgFootPrintsNW));
+        } else if (aGrid[row][col] == Constants.SPATH){
+            rect.setFill(new ImagePattern(imgFootPrintsS));
+        } else if (aGrid[row][col] == Constants.SWPATH){
+            rect.setFill(new ImagePattern(imgFootPrintsSW));
+        } else if (aGrid[row][col] == Constants.SEPATH){
+            rect.setFill(new ImagePattern(imgFootPrintsSE));
+        } else if (aGrid[row][col] == Constants.EPATH){
+            rect.setFill(new ImagePattern(imgFootPrintsE));
+        } else if (aGrid[row][col] == Constants.WPATH){
+            rect.setFill(new ImagePattern(imgFootPrintsW));
         } else if(aGrid[row][col] == Constants.REST){
           rect.setFill(new ImagePattern(imgRestroom));
           //https://stackoverflow.com/questions/22848829/how-do-i-add-an-image-inside-a-rectangle-or-a-circle-in-javafx
@@ -833,7 +864,7 @@ public class FinderApp extends Application {
 
     Button nextFloorB = new Button("Next Floor.");
     nextFloorB.setOnAction(new HandleNextFloorClick());
-    nextFloorB.setStyle("-fx-background-color: #e63900;");
+    nextFloorB.setStyle("-fx-background-color: #ff4d4d");
 
     eleStairBox.getChildren().addAll(elevatorB,stairB,nextFloorB);
 
@@ -932,6 +963,7 @@ public class FinderApp extends Application {
               map1.setCurrentFloorPlan(planRead);
               makeGrid(planRead.getGrid(),gridPane,rectLength);
               gridVisible = true;
+
 
             }
           });
