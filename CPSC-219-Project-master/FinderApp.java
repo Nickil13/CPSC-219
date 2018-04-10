@@ -901,7 +901,7 @@ public class FinderApp extends Application {
     Button savePath = new Button("Save Path");
     //TextField to enter the file name to save to.
     TextField fileTextField = new TextField("Save path as:");
-    fileTextField.setMaxWidth(100);
+    fileTextField.setMaxWidth(130);
 
     //get a list of saved paths currently saved within the SavedPaths package.
     File[] filesList = getSavedFileList(curDir);
