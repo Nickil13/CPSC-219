@@ -347,7 +347,33 @@ public class Path {
       int nodeRow = aNode.getXCoord();
       int nodeCol = aNode.getYCoord();
       if (aNode.getEndNodeVal() == false) {
-        copyGrid[nodeRow][nodeCol] = 7;
+        //copyGrid[nodeRow][nodeCol] = 7;
+        String direction = aNode.getDirection();
+        if (direction.equals("N")) {
+          copyGrid[nodeRow][nodeCol] = 70001;
+        }
+        else if (direction.equals("NE")) {
+          copyGrid[nodeRow][nodeCol] = 70002;
+        }
+        else if (direction.equals("NW")) {
+          copyGrid[nodeRow][nodeCol] = 70003;
+        }
+        else if (direction.equals("S")) {
+          copyGrid[nodeRow][nodeCol] = 70011;
+        }
+        else if (direction.equals("SE")) {
+          copyGrid[nodeRow][nodeCol] = 70012;
+        }
+        else if (direction.equals("SW")) {
+          copyGrid[nodeRow][nodeCol] = 70013;
+        }
+        else if (direction.equals("E")) {
+          copyGrid[nodeRow][nodeCol] = 70020;
+        }
+        else if (direction.equals("W")) {
+          copyGrid[nodeRow][nodeCol] = 70030;
+        }
+
       }
 
     }
