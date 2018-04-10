@@ -44,8 +44,8 @@ public class FinderApp extends Application {
     private VBox enterStartRoomVBox = new VBox();
     private VBox enterDestRoomVBox = new VBox();
     private Rectangle[][] rectangleGrid = new Rectangle[Constants.MAX_GRIDSIZE][Constants.MAX_GRIDSIZE];
-    private Button startRoomButton = new Button("Store selection in start room");
-    private Button destRoomButton = new Button("Store selection in destination room");
+    private Button startRoomButton = new Button("Store in start");
+    private Button destRoomButton = new Button("Store in destination");
     private boolean stairs = false;
     private FloorPlans currentFloorPlan;
     private VBox eleStairBox = new VBox(10);
@@ -232,7 +232,7 @@ public class FinderApp extends Application {
       }
       public void handle(ActionEvent event){
         enterStartRoom.setText(""+rNum);
-        //rectangleGrid[row1][col1].setFill(Color.LIGHTBLUE);
+        rectangleGrid[row1][col1].setFill(Color.LIGHTBLUE);
         enterStartRoomVBox.getChildren().remove(startRoomButton);
         enterDestRoomVBox.getChildren().remove(destRoomButton);
       }
@@ -266,7 +266,7 @@ public class FinderApp extends Application {
           for(col=0;col< colLength;col++){
             if(map1.getCurrentFloorPlan().getGrid()[row][col] == roomNum && count ==0){
 
-              //rectangleGrid[row][col].setFill(Color.RED);
+              rectangleGrid[row][col].setFill(Color.RED);
               count+=1;
               if(enterStartRoomVBox.getChildren().contains(startRoomButton)==false){
                 enterStartRoomVBox.getChildren().add(startRoomButton);
@@ -294,7 +294,7 @@ public class FinderApp extends Application {
                 }
               });
             }else if(map1.getCurrentFloorPlan().getGrid()[row][col] == roomNum && count ==1){
-              //rectangleGrid[row][col].setFill(Color.LIGHTBLUE);
+              rectangleGrid[row][col].setFill(Color.LIGHTBLUE);
               count=0;
             }
           }
@@ -623,7 +623,7 @@ public class FinderApp extends Application {
         rect.setStroke(Color.BLACK);
         rect.setWidth(rectLength);
         rect.setHeight(rectLength);
-        //rectangleGrid[row][col] = rect;
+        rectangleGrid[row][col] = rect;
 
         return rect;
       }
