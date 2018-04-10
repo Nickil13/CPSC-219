@@ -268,8 +268,13 @@ public class FinderApp extends Application {
 
               //rectangleGrid[row][col].setFill(Color.RED);
               count+=1;
-              enterStartRoomVBox.getChildren().add(startRoomButton);
-              enterDestRoomVBox.getChildren().add(destRoomButton);
+              if(enterStartRoomVBox.getChildren().contains(startRoomButton)==false){
+                enterStartRoomVBox.getChildren().add(startRoomButton);
+              }
+              if(enterDestRoomVBox.getChildren().contains(destRoomButton) ==false){
+                enterDestRoomVBox.getChildren().add(destRoomButton);
+              }
+              
 
               /*
               * Clicking the button below the Start room textfield stores the selected room
@@ -846,7 +851,7 @@ public class FinderApp extends Application {
     appName.setFont(Font.font("Verdana", FontWeight.BOLD,Constants.APP_LABEL_FONTSIZE));
     appName.setPadding(new Insets(10));
 
-    buildingDropDown.getItems().addAll("Taylor Family Digital Library");
+    buildingDropDown.getItems().addAll("Taylor Family Digital Library","Bioscience");
 
     /*
     * Elevator and stair button box
@@ -1181,3 +1186,4 @@ public class FinderApp extends Application {
     primaryStage.show();
   }
 }
+
