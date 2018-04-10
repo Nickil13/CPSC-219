@@ -53,7 +53,10 @@ Note: If the name is already in use, the name will have a number in brackets tha
 To generate a path on the text-based version:
 1. Enter a starting room number and press "Enter".
 2. Enter a destination room number and press "Enter". 
-3. The final map generated is your path. The starting room is denoted by a 5 and the destination room is denoted by an 8. The path is highlighted by 7's with the hallways being 1's and the walls being 0's. 1000 series numbers denote rooms and the non-1000 number denotes the corresponding room's door. 
+3. Enter the name of a building (Either "Taylor Family Digital Library" or Bioscience").
+4. The first map generate is your path with the start room denoted by a 8.
+5. The second map generate is your path with the start room denoted by a 8 and the destination room denoted by a 5.
+4. The final map generated is your path . The starting room is denoted by a 8 and the destination room is denoted by an 5. The path is highlighted by 7's with the hallways being 1's and the walls being 0's. 1000 series numbers denote rooms and the number 1000 lower than the room numbers denotes the corresponding room's door (example room is 1151 and the door is 151). 
 
 Some good room combinations to use the app to start are:
 1. "Taylor Digital Family Library", Rooms 151 and 153.
