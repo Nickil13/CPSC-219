@@ -847,8 +847,8 @@ public class FinderApp extends Application {
     gridPaneVBox.setAlignment(Pos.CENTER);
 
 
-    Label appName = new Label ("Taylor Family Digital Library Pathfinder");
-    appName.setFont(Font.font("Verdana", FontWeight.BOLD,Constants.APP_LABEL_FONTSIZE));
+    Label appName = new Label ("University of Calgary Pathfinder");
+    appName.setFont(Font.font("Verdana", FontWeight.BOLD,Constants.APP_LABEL_FONTSIZE+6));
     appName.setPadding(new Insets(10));
 
     buildingDropDown.getItems().addAll("Taylor Family Digital Library","Bioscience");
