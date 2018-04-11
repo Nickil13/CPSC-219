@@ -17,6 +17,7 @@ import javafx.scene.control.ScrollPane.*;
 import java.util.ArrayList;
 import java.lang.NumberFormatException;
 import java.io.*;
+import java.net.URL;
 import resources.Constants;
 
 
@@ -84,31 +85,31 @@ public class FinderApp extends Application {
     private RadioButton largeButton = new RadioButton("Large Map");
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/RadioButton.html
 
-    private Image imgRestroom = new Image("RestroomImage.png",rectLength,rectLength, true, false);
+    private URL resource = FinderApp.class.getResource("/resources/");
+    private Image imgRestroom = new Image(resource+ "RestroomImage.png",rectLength,rectLength, true, false);
     //Image source: http://maxpixel.freegreatpicture.com/Rest-Room-Restroom-Ladies-Restroom-Public-Restroom-99226
-    private Image imgCoffee = new Image("Coffee.png",rectLength,rectLength,true,false);
+    private Image imgCoffee = new Image(resource + "Coffee.png",rectLength,rectLength,true,false);
     //Image source: https://www.freepik.com/free-icon/hot-coffee-rounded-cup-on-a-plate-from-side-view_732944.htm
-    private Image imgStairs = new Image("Stairs.png", rectLength, rectLength, true, false);
+    private Image imgStairs = new Image(resource + "Stairs.png", rectLength, rectLength, true, false);
     //Image source:https://pixabay.com/en/stairs-climb-levels-descend-44071/
-    private Image imgElevator = new Image("Elevator.png", rectLength, rectLength, true, false);
+    private Image imgElevator = new Image(resource + "Elevator.png", rectLength, rectLength, true, false);
     //Image source: https://pixabay.com/en/elevator-people-silhouette-down-44013//
-    private Image imgFootPrintsN = new Image("FootprintsN.png", rectLength, rectLength, true, false);
+    private Image imgFootPrintsN = new Image(resource + "FootprintsN.png", rectLength, rectLength, true, false);
     //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
-    private Image imgFootPrintsNE = new Image("FootprintsNE.png", rectLength, rectLength, true, false);
+    private Image imgFootPrintsNE = new Image(resource + "FootprintsNE.png", rectLength, rectLength, true, false);
     //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
-    private Image imgFootPrintsNW = new Image("FootprintsNW.png", rectLength, rectLength, true, false);
+    private Image imgFootPrintsNW = new Image(resource + "FootprintsNW.png", rectLength, rectLength, true, false);
     //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
-    private Image imgFootPrintsS = new Image("FootprintsS.png", rectLength, rectLength, true, false);
+    private Image imgFootPrintsS = new Image(resource + "FootprintsS.png", rectLength, rectLength, true, false);
     //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
-    private Image imgFootPrintsSE = new Image("FootprintsSE.png", rectLength, rectLength, true, false);
+    private Image imgFootPrintsSE = new Image(resource + "FootprintsSE.png", rectLength, rectLength, true, false);
     //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
-    private Image imgFootPrintsSW = new Image("FootprintsSW.png", rectLength, rectLength, true, false);
+    private Image imgFootPrintsSW = new Image(resource + "FootprintsSW.png", rectLength, rectLength, true, false);
     //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
-    private Image imgFootPrintsE = new Image("FootprintsE.png", rectLength, rectLength, true, false);
+    private Image imgFootPrintsE = new Image(resource + "FootprintsE.png", rectLength, rectLength, true, false);
     //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
-    private Image imgFootPrintsW = new Image("FootprintsW.png", rectLength, rectLength, true, false);
+    private Image imgFootPrintsW = new Image(resource + "FootprintsW.png", rectLength, rectLength, true, false);
     //Image source: https://commons.wikimedia.org/wiki/File%3AFootprints.png
-
     /**
     * Handle class that deals with the clicking of the elevator button.
     * Creates the first part of the temporary path wrt elevator.
@@ -822,7 +823,7 @@ public class FinderApp extends Application {
     appTitle.setTextFill(Color.WHITE);
 
     Button startButton = new Button("Find a Room");
-    Image uOfCCoat = new Image("UofCcoat.png");
+    Image uOfCCoat = new Image(resource +"UofCcoat.png");
     ImageView uOfCImage = new ImageView(uOfCCoat);
     //https://docs.oracle.com/javafx/2/api/javafx/scene/image/ImageView.html
 
